@@ -187,6 +187,8 @@ class InstalledVersionsTest extends TestCase
         $this->assertSame(array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => false,
             'aliases' => array(
                 '1.10.x-dev',
             ),
@@ -221,5 +223,18 @@ class InstalledVersionsTest extends TestCase
             array(null, 'b/replacer'),
             array(null, 'c/c'),
         );
+    }
+
+    public function testGetInstalledPackagesByType()
+    {
+        $names = array(
+            '__root__',
+            'a/provider',
+            'a/provider2',
+            'b/replacer',
+            'c/c',
+        );
+
+        $this->assertSame($names, \Composer\InstalledVersions::getInstalledPackagesByType());
     }
 }

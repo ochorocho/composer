@@ -171,9 +171,14 @@ class FilesystemRepository extends WritableArrayRepository
                 $reference = ($package->getSourceReference() ?: $package->getDistReference()) ?: null;
             }
 
+            $path = $installationManager->getInstallPath($package);
+            $installPath = realpath($path);
+
             $versions['versions'][$package->getName()] = array(
                 'pretty_version' => $package->getPrettyVersion(),
                 'version' => $package->getVersion(),
+                'type' => $package->getType(),
+                'install_path' => $installPath,
                 'aliases' => array(),
                 'reference' => $reference,
                 'dev-requirement' => isset($devPackages[$package->getName()]),
